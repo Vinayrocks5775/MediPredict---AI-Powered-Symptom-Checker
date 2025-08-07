@@ -110,8 +110,7 @@ MediPredict uses a cloud-first architecture, optimized for automation and scalab
 
 ## 📡 Live App
 
-🔗 [https://your-azure-url](https://your-azure-url)
-
+🔗 https://medipredict-bot-2025.azurewebsites.net/
 ## 📌 Summary
 
 MediPredict integrates machine learning, clean architecture, and Azure cloud services into a fully functional and scalable medical prediction app. It's an end-to-end demonstration of MLOps, cloud deployment, and real-time healthcare AI.
