@@ -1,86 +1,117 @@
-# MediPredict: AI-Powered Medical Disease Prediction
 
-MediPredict is an advanced, user-friendly platform for medical disease prediction and health advice. It combines machine learning, interactive web technology, and a rule-based chatbot to help users understand their symptoms and receive actionable recommendations. The system is designed for both healthcare professionals and the general public, making medical insights accessible, transparent, and easy to use.
+# 🩺 MediPredict: AI-Powered Medical Disease Prediction
 
-## What Does MediPredict Do?
-- **Predicts likely diseases** based on user-reported symptoms and their severity.
-- **Suggests precautions** and provides mapped doctor recommendations for each predicted disease.
-- **Offers fallback advice** to visit a general physician if no specific doctor is mapped.
-- **Allows users to download a PDF summary** of their results for sharing or future reference.
-- **Includes a medical chatbot** for rule-based health queries and information.
-- **Supports model training and evaluation** via interactive Jupyter notebooks, enabling experimentation with multiple machine learning algorithms.
+**MediPredict** is a cloud-deployed, AI-driven platform for predicting likely diseases based on symptom severity. It provides actionable health recommendations and interacts with users via an intelligent rule-based chatbot. Built using Azure services and machine learning best practices, MediPredict offers a secure, scalable, and real-time solution for healthcare prediction.
 
-## Tech Stack
-- **Python 3.8+** – Core programming language
-- **Streamlit** – Interactive web app for disease prediction
-- **Pandas, NumPy, scikit-learn, XGBoost** – Data processing and machine learning
-- **FPDF** – PDF generation for downloadable results
-- **Jupyter Notebooks** – Data exploration, model training, and evaluation
-- **Azure App Service** – Cloud deployment for scalable, secure access
-- **Other libraries:** PIL, joblib, difflib, etc.
+## 🔍 What MediPredict Does
 
-## Project Structure
-- `data/` – Contains raw and processed medical datasets in CSV format.
-- `notebooks/` – Jupyter notebooks for data exploration, model training, and evaluation. Includes workflows for KNN, Naive Bayes, Decision Tree, Random Forest, XGBoost, Logistic Regression, and hyperparameter tuning.
-- `src/` – Source code for the Streamlit app, chatbot, and model training scripts.
-- `models/` – Pre-trained models and encoders used for predictions.
-- `features/` – Feature files for model input.
-- `outputs/` – Generated outputs such as plots, reports, and prediction results.
+- ✅ Predicts **top 3 diseases** from 100+ symptoms using ML models.
+- 🧠 Provides **precautions** and recommends **doctor types**.
+- 💬 Includes a **rule-based chatbot** for 200+ health queries.
+- 📄 Allows **PDF download** of results for clinical use or record-keeping.
+- 📊 Supports **model experimentation** and evaluation through notebooks.
+- 🌐 Hosted on **Azure App Service**, with **end-to-end orchestration** via Azure Data Factory and Databricks.
 
-## Key Features
-- **Modern Streamlit App:** Glassmorphism UI, stepper navigation, sidebar branding, health tips, and privacy notice.
-- **Symptom Input:** Autocomplete, cluster-based suggestions, and per-symptom severity selection.
-- **Results Display:** Top 3 disease predictions with confidence scores, mapped precautions, and doctor recommendations.
-- **PDF Download:** Users can download their prediction results as a PDF summary.
-- **Medical Chatbot:** Rule-based system for answering health-related queries.
-- **Robust Mapping:** Ensures correct display of precautions and doctor advice, with fallback to general physician.
-- **Notebook Workflows:** Train, evaluate, and tune models interactively.
-- **Azure Deployment:** The app is deployed on Azure for scalable, secure, and real-time access.
+## 🧠 Machine Learning Pipeline
 
-## How to Use MediPredict
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. **Explore data and train models:**
-   - Open notebooks in the `notebooks/` directory for EDA and model experimentation.
-3. **Run the Streamlit app:**
-   ```bash
-   streamlit run src/app.py
-   ```
-   - Enter your symptoms, specify severity, and receive predictions and advice.
-   - Download your results as a PDF for sharing or record-keeping.
-4. **Use the chatbot:**
-   - Run the chatbot script in `src/` for rule-based medical queries.
+MediPredict follows the **Medallion Architecture** to ensure a clean and modular ML workflow:
 
-## Data Exploration, Cleaning, and Model Training
+1. **Bronze Layer**:  
+   - Raw zipped data extracted from Google Drive using **Databricks Notebook 1**.  
+   - Stored in **Azure Blob Storage**.
 
-- **Exploratory Data Analysis (EDA):**
-  - Use the Jupyter notebooks in the `notebooks/` directory to explore the medical datasets, visualize distributions, and understand relationships between symptoms and diseases.
-  - EDA helps identify missing values, outliers, and feature importance, guiding further data processing and modeling.
+2. **Silver Layer**:  
+   - Cleaned, transformed, and encoded data using **Notebook 2**.  
+   - Processed data written back to Blob.
 
-- **Data Cleaning:**
-  - The project includes scripts and notebook cells for handling missing data, correcting inconsistent entries, encoding categorical variables, and normalizing features.
-  - Cleaned data is saved in the `outputs/` directory for use in model training.
+3. **Gold Layer**:  
+   - ML models trained using **Notebook 3** on cleaned data.  
+   - Best models and encoders saved as `.pkl` files for prediction.
 
-- **Model Training:**
-  - Multiple machine learning models are supported, including KNN, Naive Bayes, Decision Tree, Random Forest, XGBoost, and Logistic Regression.
-  - Notebooks provide code for training, evaluating, and tuning models using cross-validation and hyperparameter search (e.g., RandomizedSearchCV).
-  - Trained models are saved in the `models/` directory and used by the Streamlit app and chatbot for predictions.
+> 🧩 Notebooks are orchestrated using **Azure Data Factory Pipelines** to ensure smooth, automated execution.
 
-## Deployment
-MediPredict is deployed on Azure, making it accessible from anywhere with secure, scalable infrastructure. The deployment process involves:
+## 🛠️ Tech Stack
 
-- **Containerization:** The Streamlit app and backend are packaged into a Docker container for portability and consistency.
-- **Azure App Service:** The container is deployed to Azure App Service, which provides managed hosting, scaling, and HTTPS security.
-- **Continuous Integration:** Updates to the codebase can be automatically built and deployed using Azure Pipelines or GitHub Actions.
-- **Environment Variables:** Sensitive information and configuration are managed via Azure portal settings.
-- **Access:** Users can interact with the app in real time via the provided Azure URL, benefiting from cloud-based predictions and advice.
+| Area             | Tools |
+|------------------|-------|
+| Programming      | Python 3.8+ |
+| ML Libraries     | scikit-learn, XGBoost, Pandas, NumPy |
+| Web Framework    | Streamlit |
+| PDF Generation   | FPDF |
+| Chatbot Logic    | Rule-based Python |
+| ML Training      | Jupyter Notebooks |
+| Deployment       | Azure App Service |
+| Data Pipeline    | Azure Data Factory + Azure Databricks |
+| Storage          | Azure Blob Storage |
+| Version Control  | GitHub |
 
-## Requirements
+## 🗂️ Project Structure
+
+```
+├── data/         # Raw and processed datasets
+├── notebooks/    # EDA, training, evaluation
+├── src/          # Streamlit app, chatbot, ML logic
+├── models/       # Trained models (.pkl), encoders
+├── features/     # Feature maps and symptom clusters
+├── outputs/      # Plots, reports, results
+├── requirements.txt
+└── README.md
+```
+
+## ✨ Key Features
+
+- 🎨 **Modern UI**: Glassmorphism design, intuitive stepper layout.
+- 🧠 **Symptom Severity Input**: User-friendly sliders and auto-suggestions.
+- 📊 **Prediction Results**: Probabilities, mapped precautions, doctor suggestions.
+- 💾 **PDF Export**: Save/share predictions via downloadable report.
+- 💬 **Chatbot**: Rule-based system with fallback advice to general physician.
+- 🔁 **Retrainable Models**: Notebooks support retraining and tuning with new data.
+- ☁️ **Azure Deployed**: Fast, scalable access with secure cloud hosting.
+
+## ▶️ How to Use MediPredict
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Train or Explore Models
+- Run notebooks in `/notebooks` for EDA and model evaluation.
+
+### 3. Launch the App
+```bash
+streamlit run src/app.py
+```
+
+## 🚀 Azure Deployment Workflow
+
+MediPredict uses a cloud-first architecture, optimized for automation and scalability:
+
+1. **Data Flow**
+   - ZIP files from Google Drive extracted via **Databricks Notebook 1** → stored in **Blob Storage (Bronze)**.
+   - Cleaned & encoded in **Notebook 2** → stored in **Silver** layer.
+   - ML models trained in **Notebook 3** → saved as `.pkl` files in **Gold** layer.
+
+2. **Automation**
+   - All notebooks connected and executed using **Azure Data Factory** pipelines.
+
+3. **Code to Deployment**
+   - Final code, models, and assets pushed to **GitHub**.
+   - GitHub linked to **Azure App Service**, which pulls and deploys the Streamlit application.
+
+4. **Hosting**
+   - App is live and accessible via a public **Azure URL**, with all assets served securely.
+
+## 📎 Requirements
+
 - Python 3.8+
-- See `requirements.txt` for all dependencies.
+- pip
+- See `requirements.txt` for full dependency list
 
----
+## 📡 Live App
 
-*For more details, explore the notebooks, try the app, or reach out for collaboration!*
+🔗 [https://your-azure-url](https://your-azure-url)
+
+## 📌 Summary
+
+MediPredict integrates machine learning, clean architecture, and Azure cloud services into a fully functional and scalable medical prediction app. It's an end-to-end demonstration of MLOps, cloud deployment, and real-time healthcare AI.
